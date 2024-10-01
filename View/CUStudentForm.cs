@@ -1,16 +1,14 @@
 ﻿using Bunifu.UI.WinForms;
 using Dapper;
 using Guna.UI2.WinForms;
-using Microsoft.VisualBasic.ApplicationServices;
 using Student_Information_System.Controller;
 using Student_Information_System.Model;
-using System;
 
 namespace Student_Information_System.View
 {
     public partial class CUStudentForm : Form
     {
-        
+
         #region Fields
         static readonly Random random = new Random();
         private readonly Student? student;
@@ -147,7 +145,7 @@ namespace Student_Information_System.View
                     var userId = dbController.Execute(conn => conn.ExecuteScalar<int>(insertUserQuery, new { Username = GenerateUsername(txtFName.Text), Password = "123", Role = "Student" }));
 
                     string insertStudentQuery = "INSERT INTO students (profile_image, first_name, middle_name, last_name, age, sex, user_id) VALUES (@ProfileImage, @FirstName, @MiddleName, @LastName, @Age, @Sex, @UserId); SELECT last_insert_rowid();";
-                    var studentId = dbController.Execute(conn => conn.ExecuteScalar<int>(insertStudentQuery, new { ProfileImage = imageController?.ImageToByteArray(picProfile.Image) , FirstName = txtFName.Text, MiddleName = txtMName.Text, LastName = txtLName.Text, Age = txtAge.Text, Sex = cmbSex.SelectedItem, UserId = userId }));
+                    var studentId = dbController.Execute(conn => conn.ExecuteScalar<int>(insertStudentQuery, new { ProfileImage = imageController?.ImageToByteArray(picProfile.Image), FirstName = txtFName.Text, MiddleName = txtMName.Text, LastName = txtLName.Text, Age = txtAge.Text, Sex = cmbSex.SelectedItem, UserId = userId }));
                     Close();
                 }
             }
